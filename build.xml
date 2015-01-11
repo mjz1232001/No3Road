@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="opluso" default="build" basedir=".">
+
+  <!-- Optional import when compiling JSPs -->
+  <import optional="true" file="${tomcat.home}/bin/catalina-tasks.xml"/> 
+
+  <description>
+      simple example build file for opluso
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="bin" location="bin"/>
+  <property name="webapp.path" value="web"/>
+  <property name="webinf" location="web/WEB-INF"/>
+  
+  <path id="project.classpath">
+        <pathelement location="bin"/>
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+ 	<pathelement location="conf/logback.xml"/>
+  </path>
+  <property environment="env" />
+
+  <target name="init">
+      <mkdir dir="${bin}"/>
+      <mkdir dir="${webinf}"/>
+      <mkdir dir="${webinf}/classes/"/>
+      <mkdir dir="${webinf}/lib/"/>
+  </target>
+  
+  <target name="compile" 
+        description="compile the source " depends="init">
+    <!-- Compile the java code from ${src} into ${bin} -->
+    <javac srcdir="${src}" debug="on"
+           includeAntRuntime="false" debuglevel="lines,vars,source"
+           destdir="${bin}">
+        <classpath refid="project.classpath"/> 
+    </javac>
+  </target>
+  
+  <target name="build" 
+        description="build" depends="compile">
+  	<copy todir="bin/">
+    	<fileset file="conf/log4j.properties"></fileset>
+    </copy>
+    <javac srcdir="${src}" destdir="${bin}" includeantruntime="false"/>
+    <copy todir="${webinf}/classes/">
+            <fileset dir="bin/"/>
+    </copy>
+    <copy todir="${webinf}/lib/">
+        <fileset dir="lib/"/>
+    </copy>
+  </target>
+
+  <target name="clean">
+        <delete dir="bin"/>
+        <delete dir="${webinf}/classes/"/>
+        <delete dir="${webinf}/lib/"/>
+   </target>
+    
+   <target name="producejsp" depends="build">
+      <delete dir="${webapp.path}/WEB-INF/src/" />
+      <jasper
+	    validateXml="false"
+	    compilerSourceVM="1.7" compilerTargetVM="1.7"
+	    uriroot="${webapp.path}" verbose="1"
+	    failOnError="false" caching="false"
+	    webXmlFragment="${webapp.path}/WEB-INF/web-buildjsp.xml"
+	    outputDir="${webapp.path}/WEB-INF/src" >
+            <!-- <classpath>
+                <pathelement path="${project.classpath}" />
+                 <pathelement location="${tomcat.home}/lib/el-api.jar"/>
+            </classpath> -->
+      </jasper>
+      <delete file="${webapp.path}/WEB-INF/web-buildjsp.xml" />
+  </target>
+
+  <target name="compilejsp" depends="build">
+      <javac destdir="${webapp.path}/WEB-INF/classes"
+	   srcdir="${webapp.path}/WEB-INF/src"
+	   encoding="utf-8"
+           debug="on" failonerror="true"  includeantruntime="false"
+           >
+          <classpath>
+              <fileset dir="${webapp.path}/WEB-INF/lib">
+                  <include name="*.jar"/>
+              </fileset>
+              <fileset dir="${tomcat.home}/lib">
+                  <include name="*.jar"/>
+              </fileset>
+              <pathelement location="${webapp.path}/WEB-INF/classes"/>
+             <fileset dir="${tomcat.home}/bin">
+                 <include name="*.jar"/>
+             </fileset>
+              <pathelement location="${tomcat.home}/lib"/>
+          </classpath>
+          <include name="**" />
+          <exclude name="tags/**" />
+      </javac>
+  </target>
+</project>
