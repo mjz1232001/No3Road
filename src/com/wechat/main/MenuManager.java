@@ -4,11 +4,12 @@ package com.wechat.main;
 //import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wechat.pojo.AccessToken;
 import com.wechat.pojo.Button;
 import com.wechat.pojo.ViewButton;
 import com.wechat.pojo.ComplexButton;
 import com.wechat.pojo.Menu;
-import com.wechat.pojo.ViewButton;
+import com.wechat.util.WeixinUtil;
 
 /**
  * 菜单管理器类
@@ -24,11 +25,10 @@ public class MenuManager {
 		String appSecret = "059feae011f01dcff6e15f6b457fb138";
 
 		// 调用接口获取access_token
-//		com.wechat.pojo.AccessToken at = com.wechat.util.WeixinUtil.getAccessToken(appId, appSecret);
-		String token = "j-JnzNYNEctZvwzdGrGGv5NsJ-Blg6p7dDoCY5bmyfN18sf8DXpKWjh_a8zl6QklmDfFcw_hK1GYHaT0z5-ZWC5HfICAGd6FicZ688dzX0A";
+		AccessToken at = WeixinUtil.getAccessToken(appId, appSecret);
 		if (true) {
 			// 调用接口创建菜单
-			long result = com.wechat.util.WeixinUtil.createMenu(getMenu(), token);
+			long result = WeixinUtil.createMenu(getMenu(), at.getToken());
 
 			// 判断菜单创建结果
 			if (0 == result)

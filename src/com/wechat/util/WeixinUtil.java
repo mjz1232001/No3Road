@@ -113,11 +113,11 @@ public class WeixinUtil {
 			try {
 				accessToken = new AccessToken();
 				accessToken.setToken((String)jsonObject.get("access_token"));
-				accessToken.setExpiresIn((int)jsonObject.get("expires_in"));
+				accessToken.setExpiresIn((long)jsonObject.get("expires_in"));
 			} catch (Exception e) {
 				accessToken = null;
 				// 获取token失败
-				log.error("获取token失败 errcode:{} errmsg:{}", (int)jsonObject.get("errcode"), (String)jsonObject.get("errmsg"));
+				log.error("获取token失败 errcode:{} errmsg:{}", (long)jsonObject.get("errcode"), (String)jsonObject.get("errmsg"));
 			}
 		}
 		return accessToken;
