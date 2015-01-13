@@ -6,6 +6,7 @@ package com.wechat.main;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wechat.pojo.AccessToken;
 import com.wechat.pojo.Button;
+import com.wechat.pojo.CommonButton;
 import com.wechat.pojo.ViewButton;
 import com.wechat.pojo.ComplexButton;
 import com.wechat.pojo.Menu;
@@ -44,62 +45,32 @@ public class MenuManager {
 	 * @return
 	 */
 	public static Menu getMenu() {
-		ViewButton btn11 = new ViewButton();
-		btn11.setName("全部车型");
-		btn11.setType("view");
-		btn11.setUrl("http://www.3453.m.weimob.com/Webcar/SeriesModelList?pid=3453&wechatid=fromUsername&title=全部车型&wxref=mp.weixin.qq.com");
-
-		ViewButton btn12 = new ViewButton();
-		btn12.setName("BMW");
-		btn12.setType("view");
-		btn12.setUrl("http://www.3453.m.weimob.com/car/Webbrand/SeriesModelList/type/3/pid/3453/sid/56/mid/82/wechatid/fromUsername/title/全部车型");
-
-		ViewButton btn13 = new ViewButton();
-		btn13.setName("BMW2");
-		btn13.setType("view");
-		btn13.setUrl("http://www.3453.m.weimob.com/weisite/list?pid=3453&bid=7443&wechatid=fromUsername&ltid=4949&wxref=mp.weixin.qq.com");
-
-		ViewButton btn14 = new ViewButton();
-		btn14.setName("最新资讯");
-		btn14.setType("view");
-		btn14.setUrl("http://www.3453.m.weimob.com/weisite/list?pid=3453&bid=7443&wechatid=fromUsername&ltid=24768&wxref=mp.weixin.qq.com");
+		ViewButton mainBtn1 = new ViewButton();
+		mainBtn1.setName("社区");
+		mainBtn1.setType("view");
+		mainBtn1.setUrl("http://m.wsq.qq.com/143767443");
 		
-		ViewButton btn15 = new ViewButton();
-		btn15.setName("微相册");
-		btn15.setType("view");
-		btn15.setUrl("http://www.3453.m.weimob.com/Webalbums/Albumslist?pid=3453&bid=7443&wxref=mp.weixin.qq.com");
-
-		ViewButton btn21 = new ViewButton();
-		btn21.setName("预约保养");
-		btn21.setType("view");
-		btn21.setUrl("http://www.3453.m.weimob.com/Webcar/CarReserveBook?pid=3453&wechatid=fromUsername&title=预约保养&wxref=mp.weixin.qq.com");
-
-		ViewButton btn22 = new ViewButton();
-		btn22.setName("销售管理");
-		btn22.setType("view");
-		btn22.setUrl("http://www.3453.m.weimob.com/Webcar/SellList?pid=3453&wechatid=fromUsername&title=联系销售&wxref=mp.weixin.qq.com");
-
-		ViewButton btn23 = new ViewButton();
-		btn23.setName("优惠活动");
-		btn23.setType("view");
-		btn23.setUrl("http://www.3453.m.weimob.com/weisite/list?pid=3453&bid=7443&wechatid=fromUsername&ltid=24768&wxref=mp.weixin.qq.com");
-
-
-		ViewButton mainBtn3 = new ViewButton();
-		mainBtn3.setName("进入微官网");
-		mainBtn3.setType("view");
-		mainBtn3.setUrl("http://www.3453.m.weimob.com/weisite/home?pid=3453&bid=7443&wechatid=fromUsername");
-
-		ComplexButton mainBtn1 = new ComplexButton();
-		mainBtn1.setName("签证");
-		mainBtn1.setSub_button(new Button[] { btn11, btn12, btn13, btn14, btn15 });
-
+		CommonButton btn21 = new CommonButton();  
+        btn21.setName("移民");  
+        btn21.setType("click");  
+        btn21.setKey("21");  
+  
+        CommonButton btn22 = new CommonButton();  
+        btn22.setName("签证");  
+        btn22.setType("click");  
+        btn22.setKey("22");  
+        
 		ComplexButton mainBtn2 = new ComplexButton();
-		mainBtn2.setName("移民");
-		mainBtn2.setSub_button(new Button[] { btn21, btn22, btn23 });
+		mainBtn2.setName("个性化服务");
+		mainBtn2.setSub_button(new CommonButton[] { btn21, btn22});
+		
+		ViewButton mainBtn3 = new ViewButton();
+		mainBtn3.setName("微官网");
+		mainBtn3.setType("view");
+		mainBtn3.setUrl("http://5222.m.weimob.com/weisite/home?pid=5222&bid=10400&wechatid=fromUsername");
 
 		Menu menu = new Menu();
-		menu.setButton(new Button[] { mainBtn1, mainBtn2, mainBtn3});
+		menu.setButton(new Button[] { mainBtn1, mainBtn3});
 
 		return menu;
 	}
