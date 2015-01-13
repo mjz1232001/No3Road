@@ -70,7 +70,7 @@ public class MenuManager {
 		mainBtn3.setUrl("http://5222.m.weimob.com/weisite/home?pid=5222&bid=10400&wechatid=fromUsername");
 
 		Menu menu = new Menu();
-		menu.setButton(new Button[] { mainBtn1, mainBtn3});
+		menu.setButton(new Button[] { mainBtn1, mainBtn2, mainBtn3});
 
 		return menu;
 	}

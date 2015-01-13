@@ -63,7 +63,7 @@ public class CoreService {
 		Article article2 = new Article();
 		article2.setTitle("申请");
 		article2.setDescription("申请名校好帮手");
-		article2.setPicUrl("www.7676u.org/images/banners.gif");
+		article2.setPicUrl("http://gzdaily.dayoo.com/res/2/20121106/1352131422584_1.jpg");
 		article2.setUrl("http://mp.weixin.qq.com/s?__biz=MjM5MzYzNzI0MA==&mid=202926829&idx=3&sn=66b35e083fa9329044576099753b8e00#rd");
 
 		Article article3 = new Article();
@@ -116,7 +116,7 @@ public class CoreService {
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
 				String reqContent = requestMap.get("Content");
 				if (reqContent.equals("？")) {
-					respContent = "回复数字1 -> 最新PNP消息 \n\n 回复数字2 -> 最新CEC消息 \n\n 回复数字3 -> 最新快速通道消息 \n\n 回复数字4 -> 基于位置的个性化服务 \n\n";
+					respContent = " 回复数字1 -> 最新PNP消息 \n\n 回复数字2 -> 最新CEC消息 \n\n 回复数字3 -> 最新快速通道消息 \n\n 回复数字4 -> 基于位置的个性化服务 \n\n 回复数字5 -> 回到欢迎消息";
 				} else if (reqContent.equals("1")) {
 					return generateMessage(requestMap, "PNP");
 				} else if (reqContent.equals("2")) {
@@ -125,6 +125,8 @@ public class CoreService {
 					return generateMessage(requestMap, "快速通道");
 				} else if (reqContent.equals("4")) {
 					respContent = "我们提供个性化的签证服务， 请发送您的地址信息，我们维护数据库来帮您个性化服务";
+				} else if (reqContent.equals("5")) {
+					return generateNewsMessage(requestMap);
 				} else {
 					respContent = "您发送的是文本消息！";
 				} 
@@ -163,7 +165,7 @@ public class CoreService {
 					String eventKey = requestMap.get("EventKey");  
 					  
                     if (eventKey.equals("21")) {  
-                        respContent = "我们的产品可以根据用户的信息来提供个性化的移民服务";  
+                    	respContent = "我们提供个性化的签证服务， 请发送您的地址信息，我们维护数据库来帮您个性化服务"; 
                     } else if (eventKey.equals("22")) {  
                     	return generateNewsMessage(requestMap);  
                     } 
